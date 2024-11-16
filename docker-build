@@ -1,0 +1,21 @@
+# Stage 1: Build the Go binary
+FROM golang:alpine AS build
+
+WORKDIR /app
+COPY . . 
+RUN go build -o main .
+
+# Stage 2: Copy the binary to a Chiseled Ubuntu image
+FROM ubuntu:chiseled-latest
+
+WORKDIR /app
+COPY --from=build /app/main .
+
+# Set the user to non-root
+USER nonroot
+
+# Expose the port if necessary
+EXPOSE 8080
+
+# Run the application
+CMD ["./main"]
