@@ -10,6 +10,9 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/cloud"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources"
+
+	//"net/http"
+    //"github.com/gin-gonic/gin"
 )
 
 func GetCloudTypeFromEnvVar() (cloudtype cloud.Configuration) {
@@ -38,10 +41,7 @@ func GetCloudTypeFromEnvVar() (cloudtype cloud.Configuration) {
 
 }
 
-func main() {
-
-	resourceId := ""
-
+func getResourceTagValue(resourceId *string, tagName *string) (value *string){
 	subscriptionID := os.Getenv("AZURE_SUBSCRIPTION_ID")
 	if len(subscriptionID) == 0 {
 		log.Panic("AZURE_SUBSCRIPTION_ID is not set.")
@@ -60,10 +60,21 @@ func main() {
 	resourcesClient := clientFactory.NewClient()
 
 	// Generated from API version 2021-04-01
-	clientResponse, err := resourcesClient.GetByID(context.Background(), resourceId, "2021-04-01", nil)
+	clientResponse, err := resourcesClient.GetByID(context.Background(), *resourceId, "2021-04-01", nil)
 	if err != nil {
 		log.Panic(err)
 	}
 
-	log.Printf("ID: %T", clientResponse.ID)
+	return clientResponse.Tags[*tagName]
+
+}
+
+func main() {
+
+	resourceId := "/subscriptions/34558c2d-e4d3-4b3c-91e8-96b795831a5d/resourceGroups/DefaultResourceGroup-EUS"
+	tagName := "Environment"
+
+	environmentName := *getResourceTagValue(&resourceId, &tagName)
+
+	log.Printf("Environment: %s", environmentName)
 }
