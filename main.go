@@ -15,7 +15,7 @@ import (
     //"github.com/gin-gonic/gin"
 )
 
-func GetCloudTypeFromEnvVar() (cloudtype cloud.Configuration) {
+func getCloudTypeFromEnvVar() (cloudtype cloud.Configuration) {
 	// Retrieve the value of the environment variable
 	envVarName := "AZURE_CLOUD_TYPE"
 	envVarValue := os.Getenv(envVarName)
@@ -52,7 +52,7 @@ func getResourceTagValue(resourceId *string, tagName *string) (value *string){
 		log.Panic(err)
 	}
 
-	opts := azcore.ClientOptions{Cloud: GetCloudTypeFromEnvVar()}
+	opts := azcore.ClientOptions{Cloud: getCloudTypeFromEnvVar()}
 	clientFactory, _ := armresources.NewClientFactory(subscriptionID, cred, &arm.ClientOptions{
 		ClientOptions: opts,
 	})
