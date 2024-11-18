@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"io"
 	"log"
 	"os"
 
@@ -11,8 +12,9 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources"
 
-	//"net/http"
-    //"github.com/gin-gonic/gin"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func getCloudTypeFromEnvVar() (cloudtype cloud.Configuration) {
@@ -41,10 +43,15 @@ func getCloudTypeFromEnvVar() (cloudtype cloud.Configuration) {
 
 }
 
-func getResourceTagValue(resourceId *string, tagName *string) (value *string){
+func getResourceTagValue(resourceId *string) (value *string){
 	subscriptionID := os.Getenv("AZURE_SUBSCRIPTION_ID")
 	if len(subscriptionID) == 0 {
 		log.Panic("AZURE_SUBSCRIPTION_ID is not set.")
+	}
+
+	tagName := os.Getenv("AZURE_ENV_TAG_NAME")
+	if len(tagName) == 0 {
+		log.Panic("AZURE_ENV_TAG_NAME is not set.")	
 	}
 
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
@@ -65,16 +72,37 @@ func getResourceTagValue(resourceId *string, tagName *string) (value *string){
 		log.Panic(err)
 	}
 
-	return clientResponse.Tags[*tagName]
+	return clientResponse.Tags[tagName]
 
 }
 
+// used for kubernetes liveness probe.  if http 200 not returned then pod will be scheduled for restart.
+func livenessProbe(c *gin.Context) (){
+	c.Status(http.StatusOK)
+}
+
+// used for kubernetes readiness probe.  controls traffic to pod.  returning http 200 indicates pod is ready fo rtraffic
+func readinessProbe(c *gin.Context) (){  
+	// TODO: check that required environment vars have values
+	// TODO: check connection to Azure
+
+	c.Status(http.StatusOK)
+}
+
+
 func main() {
 
-	resourceId := "/subscriptions/34558c2d-e4d3-4b3c-91e8-96b795831a5d/resourceGroups/DefaultResourceGroup-EUS"
-	tagName := "Environment"
+	//resourceId := "/subscriptions/34558c2d-e4d3-4b3c-91e8-96b795831a5d/resourceGroups/DefaultResourceGroup-EUS"
 
-	environmentName := *getResourceTagValue(&resourceId, &tagName)
+	//environmentName := *getResourceTagValue(&resourceId)
 
-	log.Printf("Environment: %s", environmentName)
+	//log.Printf("Environment: %s", environmentName)
+
+	router := gin.Default()
+	gin.DisableConsoleColor()
+	gin.DefaultWriter = io.MultiWriter(os.Stdout)
+    router.GET("/liveness-probe", livenessProbe)
+	router.GET("/readiness-probe", readinessProbe)
+
+    router.Run("localhost:8080")
 }
