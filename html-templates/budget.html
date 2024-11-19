@@ -1,0 +1,12 @@
+<h1><b><strong>@{triggerBody()?['data']?['alertContext']?['AlertData']?['ThresholdType']} Budget Spend Amount Reached
+            @{mul(div(if(equals(triggerBody()?['data']?['alertContext']?['AlertData']?['ThresholdType'], 'Forecasted'),
+            decimal(substring(triggerBody()?['data']?['alertContext']?['AlertData']?['ForecastedTotalForPeriod'], 1)),
+            decimal(substring(triggerBody()?['data']?['alertContext']?['AlertData']?['SpentAmount'], 1))),
+            decimal(substring(triggerBody()?['data']?['alertContext']?['AlertData']?['BudgetThreshold'], 1))),
+            100)}%</strong></b></h1><br>
+<p>@{triggerBody()?['data']?['essentials']?['description']}</p><br>
+<p>Visit <a
+        href='https://${local.portal}/#view/Microsoft_Azure_CostManagement/Menu/~/overview/open/budgets/openedBy/AzurePortal'>Cost
+        Management</a> for more details.</p><br>
+<p><a href='https://${local.portal}/#view/Microsoft_Azure_CostManagement/BudgetDetailBlade/budgetId/@{replace(substring(triggerBody()?['
+        data']?['alertContext']?['AlertData']?['BudgetId'], 1), '/' , '%2F' )}'>Budget Link</a></p>

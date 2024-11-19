@@ -1,0 +1,26 @@
+<h1><b><strong>Azure Monitor Alert was @{triggerBody()?['data']?['essentials']?['monitorCondition']}</strong></b></h1>
+<br>
+<p>Azure monitor alert rule '@{triggerBody()?['data']?['essentials']?['alertRule']}' was triggered for
+    '@{triggerBody()?['data']?['essentials']?['configurationItems'][0]}' at
+    @{triggerBody()?['data']?['essentials']?['firedDateTime']}</p><br>
+<p>Alert rule description: @{triggerBody()?['data']?['essentials']?['description']}</p><br>
+<p>Resource ID: @{triggerBody()?['data']?['essentials']?['alertTargetIDs'][0]}<br><a
+        href='https://${local.portal}/#@${local.domain}/resource@{triggerBody()?['
+        data']?['essentials']?['alertTargetIDs'][0]}'>View Resource ></a></p><br>
+<p>
+<h2>Alert Activated Because</h2>
+</p><br>
+<p>Metric Name: @{if(equals(triggerBody()?['data']?['essentials']?['signalType'], 'Log'),
+    triggerBody()?['data']?['alertContext']?['condition']?['allOf'][0]?['metricMeasureColumn'],
+    triggerBody()?['data']?['alertContext']?['condition']?['allOf'][0]?['metricName'])}</p><br>
+<p>Metric Namespace: @{if(equals(triggerBody()?['data']?['essentials']?['signalType'], 'Log'),
+    triggerBody()?['data']?['alertContext']?['condition']?['allOf'][0]?['targetResourceTypes'],
+    triggerBody()?['data']?['alertContext']?['condition']?['allOf'][0]?['metricNamespace'])}</p><br>
+<p>Time Aggregation: @{triggerBody()?['data']?['alertContext']?['condition']?['allOf'][0]?['timeAggregation']}</p><br>
+<p>Period: @{triggerBody()?['data']?['alertContext']?['condition']?['windowSize']}</p><br>
+<p>Value: @{triggerBody()?['data']?['alertContext']?['condition']?['allOf'][0]?['metricValue']}</p><br>
+<p>Operator: @{triggerBody()?['data']?['alertContext']?['condition']?['allOf'][0]?['operator']}</p><br>
+<p>Threshold: @{triggerBody()?['data']?['alertContext']?['condition']?['allOf'][0]?['threshold']}</p><br>
+<p>@{if(equals(triggerBody()?['data']?['essentials']?['signalType'], 'Log'), concat('<a href=''', triggerBody()?['
+        data']?['alertContext']?['condition']?['allOf'][0]?['linkToSearchResultsUI'], '''>Search Results</a>' ), ''
+        )}</p>

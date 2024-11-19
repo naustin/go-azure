@@ -1,0 +1,12 @@
+<h1><b><strong>@{triggerBody()?['data']?['essentials']?['description']}</strong></b></h1><br>
+<p>At @{triggerBody()?['data']?['alertContext']?['eventTimestamp']}, the resource
+    '@{triggerBody()?['data']?['essentials']?['configurationItems'][0]}' transitioned to a
+    '@{triggerBody()?['data']?['alertContext']?['properties']?['currentHealthStatus']}' health state.</p><br>
+<p>Level: @{triggerBody()?['data']?['alertContext']?['level']}</p><br>
+<p>Issue: @{triggerBody()?['data']?['alertContext']?['properties']?['title']}</p><br>
+<p>Status Transition: @{triggerBody()?['data']?['alertContext']?['properties']?['previousHealthStatus']} ->
+    @{triggerBody()?['data']?['alertContext']?['properties']?['currentHealthStatus']}</p><br>
+<p>Type: @{triggerBody()?['data']?['alertContext']?['properties']?['type']}</p><br>
+<p>Cause: @{triggerBody()?['data']?['alertContext']?['properties']?['cause']}</p><br>
+<p><a href='https://${local.portal}/#@${local.domain}/resource@{triggerBody()?['
+        data']?['essentials']?['alertTargetIDs'][0]}'>View Resource</a></p>

@@ -1,0 +1,7 @@
+<h1><b><strong>Prod lock was removed</strong></b></h1><br>
+<p>At @{triggerBody()?['data']?['alertContext']?['eventTimestamp']}, the resource group lock
+    '@{triggerBody()?['data']?['essentials']?['alertTargetIDs'][0]}' was removed. If this is not intended (i.e the
+    result of a production deployment), please consult the Cloud Infra team.</p><br>
+<p><a href=https://${local.portal}/#@${local.domain}/resource/@{slice(triggerBody()?['data']?['essentials']?['alertTargetIDs'][0],
+        0, nthIndexOf(triggerBody()?['data']?['essentials']?['alertTargetIDs'][0], '/' , 5))}/overview>Link to resource
+        group</a></p>

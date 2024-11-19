@@ -43,7 +43,7 @@ func getCloudTypeFromEnvVar() (cloudtype cloud.Configuration) {
 
 }
 
-func getResourceTagValue(resourceId *string) (value *string){
+func getResourceTagValue(resourceId *string) (value *string) {
 	subscriptionID := os.Getenv("AZURE_SUBSCRIPTION_ID")
 	if len(subscriptionID) == 0 {
 		log.Panic("AZURE_SUBSCRIPTION_ID is not set.")
@@ -51,7 +51,7 @@ func getResourceTagValue(resourceId *string) (value *string){
 
 	tagName := os.Getenv("AZURE_ENV_TAG_NAME")
 	if len(tagName) == 0 {
-		log.Panic("AZURE_ENV_TAG_NAME is not set.")	
+		log.Panic("AZURE_ENV_TAG_NAME is not set.")
 	}
 
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
@@ -77,18 +77,17 @@ func getResourceTagValue(resourceId *string) (value *string){
 }
 
 // used for kubernetes liveness probe.  if http 200 not returned then pod will be scheduled for restart.
-func livenessProbe(c *gin.Context) (){
+func livenessProbe(c *gin.Context) {
 	c.Status(http.StatusOK)
 }
 
 // used for kubernetes readiness probe.  controls traffic to pod.  returning http 200 indicates pod is ready fo rtraffic
-func readinessProbe(c *gin.Context) (){  
+func readinessProbe(c *gin.Context) {
 	// TODO: check that required environment vars have values
 	// TODO: check connection to Azure
 
 	c.Status(http.StatusOK)
 }
-
 
 func main() {
 
@@ -101,8 +100,8 @@ func main() {
 	router := gin.Default()
 	gin.DisableConsoleColor()
 	gin.DefaultWriter = io.MultiWriter(os.Stdout)
-    router.GET("/liveness-probe", livenessProbe)
+	router.GET("/liveness-probe", livenessProbe)
 	router.GET("/readiness-probe", readinessProbe)
 
-    router.Run("localhost:8080")
+	router.Run("localhost:8080")
 }

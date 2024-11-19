@@ -1,0 +1,11 @@
+
+
+<h1><b><strong>@{triggerBody()?['data']?['alertContext']?['properties']?['title']}</strong></b></h1><br>
+<p>@{triggerBody()?['data']?['alertContext']?['properties']?['communication']}</p><br>
+<p>Type: @{triggerBody()?['data']?['alertContext']?['properties']?['incidentType']}</p><br>
+<p>Start Time: @{triggerBody()?['data']?['alertContext']?['properties']?['impactStartTime']}</p><br>
+<p>Mitigation Time: @{triggerBody()?['data']?['alertContext']?['properties']?['impactMitigationTime']}</p><br>
+<p>Alert Scope: @{triggerBody()?['data']?['essentials']?['alertTargetIds'][0]}</p><br>
+<p>Impacted Services:
+<table>@{triggerBody()?['data']?['alertContext']?['properties']?['impactedServicesTableRows']}</table>
+</p>
