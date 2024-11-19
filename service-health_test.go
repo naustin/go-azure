@@ -18,6 +18,10 @@ func TestHappyPath(t *testing.T) {
 		TargetIds: []string{
 			"targetID1",
 			"targetID2"},
+		ImpactedServices: []string{
+			"service1",
+			"service2",
+			"service3"},
 	}
 
 	output := CreateServiceHealthHtml(sampleSH)

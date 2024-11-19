@@ -3,10 +3,9 @@ package main
 import (
 	"bytes"
 	"html/template"
-	
+
 	"github.com/tdewolff/minify"
 	"github.com/tdewolff/minify/html"
-
 )
 
 type ServiceHealth struct {
@@ -21,7 +20,7 @@ type ServiceHealth struct {
 }
 
 func HtmlMinify(content string) string {
-    
+
 	m := minify.New()
 	m.AddFunc("text/html", html.Minify)
 
@@ -63,24 +62,23 @@ func CreateServiceHealthHtml(serviceHealth ServiceHealth) string {
 		<p><b>Mitigation Time:</b> {{ .ImpactMitigationTime }}</p><br>
 	{{ end }}
 	{{ if .TargetIds }}
-		<p> 
+		<p><b>Alert Target Ids:</b>
 		<table>
-		<tr><td><b>Alert Target Ids:</b></td><td></td></tr>
 		{{range .TargetIds }}
 			<tr>
-				<td></td><td>{{ . }}</td>
+				<td>{{ . }}</td>
 			<tr>
 		{{end}}
 		</table>
-		</p><br>
+		</p>
 	{{ end }}
 	{{ if .ImpactedServices }}
-		<p></b>Impacted Services:</b>
+		<p><b>Impacted Services:</b>
 		<table>
 		{{range .ImpactedServices }}
-		<tr>
-			<td>{{ . }}</td>
-		<tr>
+			<tr>
+				<td>{{ . }}</td>
+			<tr>
 		{{end}}	
 		</table>
 		</p>
