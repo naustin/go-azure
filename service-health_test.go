@@ -4,15 +4,13 @@ import (
 	"testing"
 )
 
-// TestHelloName calls greetings.Hello with a name, checking
-// for a valid return value.
-func TestHappyPath(t *testing.T) {
+func TestServiceHealthAllFields(t *testing.T) {
 
 	sampleSH := ServiceHealth{
 		Environment:          "dev",
 		Title:                "API Latency Exceeded Threshold",
 		Communication:        "Key vault latency communication.",
-		IncidentType:         "",
+		IncidentType:         "Incident type here.",
 		ImpactStartTime:      "10/22/2024",
 		ImpactMitigationTime: "10/23/2024",
 		TargetIds: []string{
@@ -31,11 +29,26 @@ func TestHappyPath(t *testing.T) {
 	}
 	t.Log(output)
 
-	/*
-	   want := regexp.MustCompile(`\b`+name+`\b`)
-	   msg, err := Hello("Gladys")
-	   if !want.MatchString(msg) || err != nil {
-	       t.Fatalf(`Hello("Gladys") = %q, %v, want match for %#q, nil`, msg, err, want)
-	   }
-	*/
+}
+
+func TestOnlyServiceHealthEnvAndTitle(t *testing.T) {
+
+	sampleSH := ServiceHealth{
+		Environment:          "dev",
+		Title:                "API Latency Exceeded Threshold",
+		Communication:        "",
+		IncidentType:         "",
+		ImpactStartTime:      "",
+		ImpactMitigationTime: "",
+		TargetIds:            nil,
+		ImpactedServices:     nil,
+	}
+
+	output := CreateServiceHealthHtml(sampleSH)
+
+	if output == "" {
+		t.Fatal("No html generated")
+	}
+	t.Log(output)
+
 }

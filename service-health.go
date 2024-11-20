@@ -1,12 +1,6 @@
 package main
 
-import (
-	"bytes"
-	"html/template"
-
-	"github.com/tdewolff/minify"
-	"github.com/tdewolff/minify/html"
-)
+import ()
 
 type ServiceHealth struct {
 	Environment          string
@@ -17,19 +11,6 @@ type ServiceHealth struct {
 	ImpactMitigationTime string
 	TargetIds            []string
 	ImpactedServices     []string
-}
-
-func HtmlMinify(content string) string {
-
-	m := minify.New()
-	m.AddFunc("text/html", html.Minify)
-
-	s, err := m.String("text/html", content)
-	if err != nil {
-		panic(err)
-	}
-
-	return s
 }
 
 func CreateServiceHealthHtml(serviceHealth ServiceHealth) string {
@@ -85,15 +66,8 @@ func CreateServiceHealthHtml(serviceHealth ServiceHealth) string {
 	{{ end }}
 	</body></html>
 	`
-	t, err := template.New("sh").Parse(tmpl)
-	if err != nil {
-		panic(err)
-	}
-	var buf bytes.Buffer
-	err = t.Execute(&buf, serviceHealth)
-	if err != nil {
-		panic(err)
-	}
 
-	return HtmlMinify(buf.String())
+	htmlText := BuildHtmlFromTemplate(tmpl, serviceHealth)
+
+	return HtmlMinify(htmlText)
 }
