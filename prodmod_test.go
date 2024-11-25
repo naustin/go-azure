@@ -6,7 +6,7 @@ import (
 
 func TestProdModAllFields(t *testing.T) {
 	sampleProdMod := ProdMod{
-		Environment:         "dev",
+		Environment:    "dev",
 		EventTimestamp: "10/3/2024",
 		TargetIds: []string{
 			"targetID1",

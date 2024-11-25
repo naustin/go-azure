@@ -3,9 +3,9 @@ package main
 import ()
 
 type ProdMod struct {
-	Environment         string
-	EventTimestamp      string
-	TargetIds           []string
+	Environment    string
+	EventTimestamp string
+	TargetIds      []string
 }
 
 func CreateProdModHtml(prodMod ProdMod) string {
