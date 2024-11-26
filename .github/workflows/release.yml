@@ -2,9 +2,8 @@
 name: Build and Deploy with Buildpacks
 
 on:
-  # push:
-    # branches:
-      # - main  # Trigger the workflow on push to the main branch
+   push:
+    branches: [ "" ]
   # pull_request:
     # branches:
      # - main  # Trigger the workflow on pull requests to the main branch
