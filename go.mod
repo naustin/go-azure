@@ -1,6 +1,6 @@
 module naustin.com/go-azure
 
-go 1.22.4
+go 1.23
 
 require (
 	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.9.0
