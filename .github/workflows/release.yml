@@ -45,18 +45,10 @@ jobs:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
     - name: Build and push Docker image using Buildpacks
-      run: |
-        pack build ${{ secrets.DOCKER_USERNAME }}/my-image --builder gcr.io/buildpacks/builder:v1 --path .
-        docker push ${{ secrets.DOCKER_USERNAME }}/my-image:latest
-
-    - name: Push Docker image
       id: push
-      uses: #TODO: change to push action only,  docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
-      with:
-        context: .
-        push: true
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
+      run: |
+        pack build ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}} --builder gcr.io/buildpacks/builder:v1 --path .
+        docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}:latest
 
     - name: Generate artifact attestation
       uses: actions/attest-build-provenance@v1
