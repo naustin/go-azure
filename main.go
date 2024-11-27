@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"io"
+	"io/ioutil"
 	"log"
 	"os"
 
@@ -89,6 +90,44 @@ func readinessProbe(c *gin.Context) {
 	c.Status(http.StatusOK)
 }
 
+func RouteBySignalType(c *gin.Context) {
+
+	
+	requestRaw, err := c.GetRawData()
+	if err != nil {
+		log.Printf("Unable to read request, %s", err)
+		c.Status(http.StatusBadRequest)
+	}
+
+	requestJson := string(requestRaw)
+
+	requestMap := RequestJsonToMap(requestJson)
+
+	alertType := GetAlertType(requestMap)
+
+	if alertType == "Metric" {
+		
+		
+		c.Status(http.StatusOK)
+		return
+	}
+
+	if alertType == "ServiceHealth" {
+
+		c.Status(http.StatusOK)
+		return
+	}
+
+	if alertType == "ResourceHealth" {
+
+		c.Status(http.StatusOK)
+		return
+	}
+
+	log.Printf("No message handler found for this alert type, %s", alertType)
+	c.Status(http.StatusBadRequest)
+}
+
 func main() {
 
 	//resourceId := "/subscriptions/34558c2d-e4d3-4b3c-91e8-96b795831a5d/resourceGroups/DefaultResourceGroup-EUS"
@@ -102,6 +141,7 @@ func main() {
 	gin.DefaultWriter = io.MultiWriter(os.Stdout)
 	router.GET("/liveness-probe", livenessProbe)
 	router.GET("/readiness-probe", readinessProbe)
+	router.POST("/process-alert", processAlert)
 
 	router.Run("localhost:8080")
 }

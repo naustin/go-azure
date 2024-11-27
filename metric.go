@@ -12,6 +12,8 @@ type Metric struct {
 	TargetIds        []string
 }
 
+func ProcessRequest()
+
 func CreateMetricHtml(metric Metric) string {
 	tmpl := `
 <h1><b><strong>{{ .Environment }}: Metric Alert was {{ .MonitorCondition }}</strong></b></h1>

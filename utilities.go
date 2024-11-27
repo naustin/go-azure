@@ -127,6 +127,7 @@ func RequestJsonToMap(jsonString string) CommonAlertSchema {
 	return req
 }
 
-func GetRequestType(reqMap CommonAlertSchema) string {
+func GetAlertType(reqMap CommonAlertSchema) string {
 	return reqMap.Body.Data.Essentials.SignalType
 }
+
