@@ -1,0 +1,99 @@
+{
+    "headers": {
+        "Expect": "100-continue",
+        "Host": "usgovvirginia.logic.azure.us",
+        "Max-Forwards": "10",
+        "User-Agent": "IcMBroadcaster/1.0",
+        "X-CorrelationContext": "RkkKACgAAAACAAAAEAD+ML9ve7EtQ4ms+jpp5rrqAQAQAOMIRZFjzl5LiLWeL+kyQps=",
+        "X-ARR-LOG-ID": "a5c6-4971-9483-8de12d5e1ef7",
+        "CLIENT-IP": "52.244.65.137:4227",
+        "DISGUISED-HOST": "usgovvirginia.logic.azure.us",
+        "X-SITE-DEPLOYMENT-ID": "usgov-bn-rp00-app",
+        "WAS-DEFAULT-HOSTNAME": "usgov-bn-rp00-app.flow-prod-usgov-bn-rp00-ase.p.azurewebsites.us",
+        "X-Forwarded-Proto": "https",
+        "X-AppService-Proto": "https",
+        "X-ARR-SSL": "2048|256|CN=Microsoft Azure RSA TLS Issuing CA 08, O=Microsoft Corporation, C=US|CN=usgovvirginia.logic.azure.us, O=Microsoft Corporation, L=Redmond, S=WA, C=US",
+        "X-Forwarded-TlsVersion": "1.3",
+        "X-Forwarded-For": "52.244.65.137:4227",
+        "X-Original-URL": "/workflows/9b54200980e2df910b200fc/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2019-05-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=Z9Bb3gV3vVcr8oLRKdPSvqXlinmBT3IjbRizlux8lE0",
+        "X-WAWS-Unencoded-URL": "/workflows/f9b54200980e2df910b200fc/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2019-05-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=Z9Bb3gV3vVcr8oLRKdPSvqXlinmBT3IjbRizlux8lE0",
+        "Content-Length": "8823",
+        "Content-Type": "application/json; charset=utf-8"
+    },
+    "body": {
+        "schemaId": "azureMonitorCommonAlertSchema",
+        "data": {
+            "essentials": {
+                "alertId": "/subscriptions/3ead-4bb9-ab6d-ae905371ec4c/providers/Microsoft.AlertsManagement/alerts/1df7ee823b1fa6f343f8b577af76678851aba1de8a4ba20c31e2a18e34f8f000",
+                "alertRule": "ala-sh-prod-prod-usgovvirginia",
+                "targetResourceType": "microsoft.resources/subscriptions",
+                "alertRuleID": "/subscriptions/3ead-4bb9-ab6d-ae905371ec4c/resourceGroups/rg-id-alerting-reg-prodsubscription-usgovvirginia/providers/microsoft.insights/activityLogAlerts/ala-sh-prod-prod-usgovvirginia",
+                "severity": "Sev4",
+                "signalType": "Activity Log",
+                "monitorCondition": "Fired",
+                "monitoringService": "Service Health",
+                "alertTargetIDs": [
+                    "/subscriptions/3ead-4bb9-ab6d-ae905371ec4c"
+                ],
+                "configurationItems": [
+                    "3ead-4bb9-ab6d-ae905371ec4c"
+                ],
+                "originAlertId": "7e3f-7bc9-77dc-ea855d3c74be_28850e03780e5f446f25dd3c2e178cb5",
+                "firedDateTime": "2024-11-27T07:29:03.1962084Z",
+                "description": "Azure service health alerts",
+                "essentialsVersion": "1.0",
+                "alertContextVersion": "1.0"
+            },
+            "alertContext": {
+                "channels": "Admin",
+                "claims": "",
+                "caller": "",
+                "correlationId": "1171-4672-825e-7e8b07ae7301",
+                "eventSource": "ServiceHealth",
+                "eventTimestamp": "2024-11-27T07:22:14.1798318+00:00",
+                "httpRequest": "",
+                "eventDataId": "7e3f-7bc9-77dc-ea855d3c74be",
+                "level": "Informational",
+                "operationName": "Microsoft.ServiceHealth/incident/action",
+                "operationId": "",
+                "properties": {
+                    "title": "Mitigated – Azure Database for PostgreSQL - Flexible Server backups not functioning  ",
+                    "service": "Azure Database for PostgreSQL flexible servers",
+                    "region": "USGov Arizona",
+                    "communication": "<p><strong>What happened?</strong></p>\n<p>Between 18:29 EST on 18 Nov 2024 and 21:39 EST on 27 Nov 2024, a platform issue resulted in an impact to the Azure Database for PostgreSQL Flexible Servers in the Fairfax regions. Impacted customers experienced missing backups and potential restore failures or delays.&nbsp;</p>\n<p><br></p>\n<p><strong>What do we know so far?</strong></p>\n<p>We determined that a recent configuration change inadvertently affected the backup process for Azure PostgreSQL databases, causing backups to be unavailable for the impact period.</p>\n<p><br></p>\n<p><strong>How did we respond?</strong></p>\n<ul><li>18:29 EST on 18 November 2024 – Customer impact began.&nbsp;&nbsp;</li><li>08:14 EST on 26 November 2024 – Issue was detected via customer reports. and a recent configuration change identified as the contributing cause factor.&nbsp;&nbsp;</li><li>21:09 EST on 26 November 2024 – Mitigation workstream initiated with the roll back of the configuration change.&nbsp;&nbsp;</li><li>21:39 EST on 26 November 2024 – Service restored, and customer impact mitigated.</li></ul>\n<p><br></p>\n<p><strong>What happens next?</strong></p>\n<p></p><ul><li>To request a Post Incident Review (PIR), impacted customers can use the “Request PIR” feature within Azure Service Health. (Note: We're in the process of transitioning from \"Root Cause Analyses (RCAs)\" to \"Post Incident Reviews (PIRs)\", so you may temporarily see both terms used interchangeably in the Azure portal and in Service Health alerts.)&nbsp;&nbsp;&nbsp;</li><li>To get notified if a PIR is published, and/or to stay informed about future Azure service issues, make sure that you configure and maintain Azure Service Health alerts – these can trigger emails, SMS, push notifications, webhooks, and more:&nbsp;<a href=\"https://aka.ms/ash-alerts\" target=\"_blank\">https://aka.ms/ash-alerts</a>&nbsp;.&nbsp;&nbsp;&nbsp;</li><li>For more information on Post Incident Reviews, refer to&nbsp;<a href=\"https://aka.ms/AzurePIRs\" target=\"_blank\">https://aka.ms/AzurePIRs</a>&nbsp;.&nbsp;&nbsp;&nbsp;</li><li>The impact times above represent the full incident duration, so are not specific to any individual customer. Actual impact to service availability may vary between customers and resources – for guidance on implementing monitoring to understand granular impact:&nbsp;<a href=\"https://aka.ms/AzPIR/Monitoring\" target=\"_blank\">https://aka.ms/AzPIR/Monitoring</a>&nbsp;.&nbsp;&nbsp;&nbsp;</li><li>Finally, for broader guidance on preparing for cloud incidents, refer to&nbsp;<a href=\"https://aka.ms/incidentreadiness\" target=\"_blank\">https://aka.ms/incidentreadiness</a>&nbsp;.&nbsp;</li></ul><p></p>",
+                    "incidentType": "Incident",
+                    "trackingId": "P_X5-7F0",
+                    "impactStartTime": "2024-11-18T23:29:00Z",
+                    "impactMitigationTime": "2024-11-27T02:29:00Z",
+                    "impactedServices": "[{\"ImpactedRegions\":[{\"RegionName\":\"USGov Arizona\",\"RegionId\":\"usgovarizona\"},{\"RegionName\":\"USGov Texas\",\"RegionId\":\"usgovtexas\"},{\"RegionName\":\"USGov Virginia\",\"RegionId\":\"usgovvirginia\"}],\"ServiceName\":\"Azure Database for PostgreSQL flexible servers\",\"ServiceId\":\"azuredatabaseforpostgresqlflexibleservers\",\"ServiceGuid\":\"3095259c-51a6-44dd-a4ac-848e34b3f75a\"}]",
+                    "impactedServicesTableRows": "<tr>\r\n<td align='center' style='padding: 5px 10px; border-right:1px solid black; border-bottom:1px solid black'>Azure Database for PostgreSQL flexible servers</td>\r\n<td align='center' style='padding: 5px 10px; border-bottom:1px solid black'>USGov Arizona<br>USGov Texas<br>USGov Virginia<br></td>\r\n</tr>\r\n",
+                    "defaultLanguageTitle": "Mitigated – Azure Database for PostgreSQL - Flexible Server backups not functioning  ",
+                    "defaultLanguageContent": "<p><strong>What happened?</strong></p>\n<p>Between 18:29 EST on 18 Nov 2024 and 21:39 EST on 27 Nov 2024, a platform issue resulted in an impact to the Azure Database for PostgreSQL Flexible Servers in the Fairfax regions. Impacted customers experienced missing backups and potential restore failures or delays.&nbsp;</p>\n<p><br></p>\n<p><strong>What do we know so far?</strong></p>\n<p>We determined that a recent configuration change inadvertently affected the backup process for Azure PostgreSQL databases, causing backups to be unavailable for the impact period.</p>\n<p><br></p>\n<p><strong>How did we respond?</strong></p>\n<ul><li>18:29 EST on 18 November 2024 – Customer impact began.&nbsp;&nbsp;</li><li>08:14 EST on 26 November 2024 – Issue was detected via customer reports. and a recent configuration change identified as the contributing cause factor.&nbsp;&nbsp;</li><li>21:09 EST on 26 November 2024 – Mitigation workstream initiated with the roll back of the configuration change.&nbsp;&nbsp;</li><li>21:39 EST on 26 November 2024 – Service restored, and customer impact mitigated.</li></ul>\n<p><br></p>\n<p><strong>What happens next?</strong></p>\n<p></p><ul><li>To request a Post Incident Review (PIR), impacted customers can use the “Request PIR” feature within Azure Service Health. (Note: We're in the process of transitioning from \"Root Cause Analyses (RCAs)\" to \"Post Incident Reviews (PIRs)\", so you may temporarily see both terms used interchangeably in the Azure portal and in Service Health alerts.)&nbsp;&nbsp;&nbsp;</li><li>To get notified if a PIR is published, and/or to stay informed about future Azure service issues, make sure that you configure and maintain Azure Service Health alerts – these can trigger emails, SMS, push notifications, webhooks, and more:&nbsp;<a href=\"https://aka.ms/ash-alerts\" target=\"_blank\">https://aka.ms/ash-alerts</a>&nbsp;.&nbsp;&nbsp;&nbsp;</li><li>For more information on Post Incident Reviews, refer to&nbsp;<a href=\"https://aka.ms/AzurePIRs\" target=\"_blank\">https://aka.ms/AzurePIRs</a>&nbsp;.&nbsp;&nbsp;&nbsp;</li><li>The impact times above represent the full incident duration, so are not specific to any individual customer. Actual impact to service availability may vary between customers and resources – for guidance on implementing monitoring to understand granular impact:&nbsp;<a href=\"https://aka.ms/AzPIR/Monitoring\" target=\"_blank\">https://aka.ms/AzPIR/Monitoring</a>&nbsp;.&nbsp;&nbsp;&nbsp;</li><li>Finally, for broader guidance on preparing for cloud incidents, refer to&nbsp;<a href=\"https://aka.ms/incidentreadiness\" target=\"_blank\">https://aka.ms/incidentreadiness</a>&nbsp;.&nbsp;</li></ul><p></p>",
+                    "stage": "Resolved",
+                    "communicationId": "11000179022901",
+                    "maintenanceId": "",
+                    "maintenanceType": "",
+                    "isHIR": "false",
+                    "isSynthetic": "False",
+                    "impactType": "SubscriptionList",
+                    "emailTemplateId": "tem_4jrcHTpjGkPFp3Y7ggDwWTX8",
+                    "emailTemplateFullVersion": "ver_6jq9G7j4j7tJC33FFPdXFDvY",
+                    "emailTemplateLocale": "en-US",
+                    "smsText": "Resolved:Mitigated – Azure Database for PostgreSQL - Flexible Server backups not functioning  ",
+                    "communicationRouteType": "Normal",
+                    "version": "0.1.1",
+                    "argQuery": ""
+                },
+                "status": "Resolved",
+                "subStatus": "",
+                "tenantId": "",
+                "submissionTimestamp": "2024-11-27T07:22:14.1798318+00:00",
+                "ReceivedTime": "2024-11-27T07:25:06+00:00",
+                "ingestionTime": "2024-11-27T07:25:09.0565871+00:00"
+            },
+            "customProperties": {
+                "from": "terraform"
+            }
+        }
+    }
+}
