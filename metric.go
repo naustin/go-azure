@@ -12,7 +12,19 @@ type Metric struct {
 	TargetIds        []string
 }
 
-func ProcessRequest()
+func ProcessMetricRequest(httpReqJson CommonAlertSchema) string {
+	var metricFields Metric
+
+	metricFields.Environment = *GetResourceTagValue(&httpReqJson.Body.Data.Essentials.AlertTargetIDs[0])
+	metricFields.AlertRule = httpReqJson.Body.Data.Essentials.AlertRule
+	metricFields.MonitorCondition = httpReqJson.Body.Data.Essentials.MonitorCondition
+	metricFields.EventTimestamp = httpReqJson.Body.Data.Essentials.FiredDateTime.String()
+	metricFields.Description = httpReqJson.Body.Data.Essentials.Description
+	metricFields.AzurePortalUrl = ""
+	metricFields.TargetIds = httpReqJson.Body.Data.Essentials.AlertTargetIDs
+
+	return CreateMetricHtml(metricFields)
+}
 
 func CreateMetricHtml(metric Metric) string {
 	tmpl := `

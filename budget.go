@@ -25,7 +25,7 @@ func CreateBudgetHtml(budgetValues Budget) string {
 <p>Visit <a
 href='https://{{ .AzurePortalUrl }}/#view/Microsoft_Azure_CostManagement/Menu/~/overview/open/budgets/openedBy/AzurePortal'>Cost
 Management</a> for more details.</p><br>
-<p><a href='https://{{ .AzurePortalUrl }}/#view/Microsoft_Azure_CostManagement/BudgetDetailBlade/budgetId/@{replace(substring('{{ .BudgetId }}', 1), '/' , '%2F' )}'>Budget Link</a></p>
+<p><a href="https://{{ .AzurePortalUrl }}/#view/Microsoft_Azure_CostManagement/BudgetDetailBlade/budgetId/@{replace(substring('{{ .BudgetId }}', 1), '/' , '%2F' )}">Budget Link</a></p>
 	`
 
 	htmlText := BuildHtmlFromTemplate(tmpl, budgetValues)

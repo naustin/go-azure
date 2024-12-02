@@ -15,6 +15,19 @@ type ResourceHealth struct {
 	TargetIds           []string
 }
 
+func ProcessResourceHealthRequest(httpReqJson CommonAlertSchema) string {
+	var fields ResourceHealth
+
+	//TODO: set environment and add additional fields from resource health struct
+	fields.Environment = ""
+	fields.Title = ""
+	fields.EventTimestamp = httpReqJson.Body.Data.Essentials.FiredDateTime.String()
+	fields.AzurePortalUrl = ""
+	fields.TargetIds = httpReqJson.Body.Data.Essentials.AlertTargetIDs
+
+	return CreateResourceHealthHtml(fields)
+}
+
 func CreateResourceHealthHtml(resourceHealth ResourceHealth) string {
 	tmpl := `
 	<!DOCTYPE html>

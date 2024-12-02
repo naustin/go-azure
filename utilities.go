@@ -5,6 +5,14 @@ import (
 	"encoding/json"
 	"html/template"
 	"time"
+	"os"
+	"log"
+	"context"
+
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
+	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources"
 
 	"github.com/tdewolff/minify"
 	"github.com/tdewolff/minify/html"
@@ -131,3 +139,35 @@ func GetAlertType(reqMap CommonAlertSchema) string {
 	return reqMap.Body.Data.Essentials.SignalType
 }
 
+func GetResourceTagValue(resourceId *string) (value *string) {
+	subscriptionID := os.Getenv("AZURE_SUBSCRIPTION_ID")
+	if len(subscriptionID) == 0 {
+		log.Panic("AZURE_SUBSCRIPTION_ID is not set.")
+	}
+
+	tagName := os.Getenv("AZURE_ENV_TAG_NAME")
+	if len(tagName) == 0 {
+		log.Panic("AZURE_ENV_TAG_NAME is not set.")
+	}
+
+	cred, err := azidentity.NewDefaultAzureCredential(nil)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	opts := azcore.ClientOptions{Cloud: getCloudTypeFromEnvVar()}
+	clientFactory, _ := armresources.NewClientFactory(subscriptionID, cred, &arm.ClientOptions{
+		ClientOptions: opts,
+	})
+
+	resourcesClient := clientFactory.NewClient()
+
+	// Generated from API version 2021-04-01
+	clientResponse, err := resourcesClient.GetByID(context.Background(), *resourceId, "2021-04-01", nil)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	return clientResponse.Tags[tagName]
+
+}

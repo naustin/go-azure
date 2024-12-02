@@ -8,6 +8,17 @@ type ProdMod struct {
 	TargetIds      []string
 }
 
+func ProcessProdModRequest(httpReqJson CommonAlertSchema) string {
+	var fields ProdMod
+
+	fields.Environment = ""
+	fields.EventTimestamp = httpReqJson.Body.Data.Essentials.FiredDateTime.String()
+	fields.TargetIds = httpReqJson.Body.Data.Essentials.AlertTargetIDs
+
+	return CreateProdModHtml(fields)
+}
+
+
 func CreateProdModHtml(prodMod ProdMod) string {
 	tmpl := `
 	<h1><b><strong>{{ .Environment }}: Prod lock was removed</strong></b></h1><br>
