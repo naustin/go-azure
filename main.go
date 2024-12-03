@@ -53,7 +53,7 @@ func readinessProbe(c *gin.Context) {
 	c.Status(http.StatusOK)
 }
 
-func RouteBySignalType(c *gin.Context) {
+func RouteBySignalType(c *gin.Context, tagLookupFn ResourceTagFunc) {
 
 	
 	requestRaw, err := c.GetRawData()
@@ -70,7 +70,7 @@ func RouteBySignalType(c *gin.Context) {
 
 	if alertType == "Metric" {
 		
-		msg := ProcessMetricRequest(requestMap)
+		msg := ProcessMetricRequest(requestMap, tagLookupFn)
 		c.Data(http.StatusOK, "application/text", []byte(msg))
 		return
 	}
@@ -102,9 +102,13 @@ func main() {
 	router := gin.Default()
 	gin.DisableConsoleColor()
 	gin.DefaultWriter = io.MultiWriter(os.Stdout)
-	router.GET("/liveness-probe", livenessProbe)
-	router.GET("/readiness-probe", readinessProbe)
-	router.POST("/process-alert", RouteBySignalType)
+	Group := router.Group("api/v1/")
+    {
+	  Group.GET("/liveness-probe", livenessProbe)
+	  Group.GET("/readiness-probe", readinessProbe)
+	  Group.POST("/process-alert", RouteBySignalType(&gin.Context, GetResourceTagValue) )
+	}
+	
 
 	router.Run("localhost:8080")
 }

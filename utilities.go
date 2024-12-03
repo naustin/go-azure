@@ -94,6 +94,7 @@ type CommonAlertSchema struct {
 	} `json:"body"`
 }
 
+type ResourceTagFunc func(*string) *string
 
 func HtmlMinify(content string) string {
 
@@ -123,7 +124,7 @@ func BuildHtmlFromTemplate(tmpl string, data any) string {
 	return buf.String()
 }
 
-func RequestJsonToMap(jsonString string) CommonAlertSchema {
+func RequestJsonToMap(jsonString string) *CommonAlertSchema {
 	
 	// Parse the JSON string
 	var req CommonAlertSchema
@@ -132,10 +133,10 @@ func RequestJsonToMap(jsonString string) CommonAlertSchema {
 		panic(err)
 	}
 
-	return req
+	return &req
 }
 
-func GetAlertType(reqMap CommonAlertSchema) string {
+func GetAlertType(reqMap *CommonAlertSchema) string {
 	return reqMap.Body.Data.Essentials.SignalType
 }
 

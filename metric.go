@@ -12,10 +12,12 @@ type Metric struct {
 	TargetIds        []string
 }
 
-func ProcessMetricRequest(httpReqJson CommonAlertSchema) string {
+
+
+func ProcessMetricRequest(httpReqJson *CommonAlertSchema, tagLookupFn ResourceTagFunc) string {
 	var metricFields Metric
 
-	metricFields.Environment = *GetResourceTagValue(&httpReqJson.Body.Data.Essentials.AlertTargetIDs[0])
+	metricFields.Environment = *tagLookupFn(&httpReqJson.Body.Data.Essentials.AlertTargetIDs[0])
 	metricFields.AlertRule = httpReqJson.Body.Data.Essentials.AlertRule
 	metricFields.MonitorCondition = httpReqJson.Body.Data.Essentials.MonitorCondition
 	metricFields.EventTimestamp = httpReqJson.Body.Data.Essentials.FiredDateTime.String()
